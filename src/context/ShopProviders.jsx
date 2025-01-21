@@ -9,6 +9,7 @@ const ShopProviders = ({ children }) => {
   // ============ State ============
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
 
   // ============ Effect ============
   useEffect(() => {
@@ -28,7 +29,7 @@ const ShopProviders = ({ children }) => {
   }, []);
 
   // ============ Context Value ============
-  const contextValue = { products, loading };
+  const contextValue = { products, loading, search, setSearch };
 
   // ============ Rendering ============
   return (
