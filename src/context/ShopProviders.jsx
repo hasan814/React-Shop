@@ -8,10 +8,12 @@ import api from "../services/config";
 const ShopProviders = ({ children }) => {
   // ============ State ============
   const [products, setProducts] = useState([]);
+  const [displayed, setDisplayed] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
+  const [query, setQuery] = useState({});
 
-  // ============ Effect ============
+  // ============ Fetch Effect ============
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -28,8 +30,39 @@ const ShopProviders = ({ children }) => {
     fetchProducts();
   }, []);
 
+  // ============== Display Effect ============
+  useEffect(() => {
+    setDisplayed(products);
+  }, [products]);
+
+  // ============== Query Effect ============
+  useEffect(() => {
+    console.log(query);
+  }, [query]);
+
+  // ============== Hanadler ============
+  const categoryHandler = (event) => {
+    const { tagName } = event.target;
+    const category = event.target.innerText.toLowerCase();
+    if (tagName !== "LI") return;
+    setQuery((query) => ({ ...query, category }));
+  };
+
+  // =============== Search Function =============
+  const searchHandler = () => {
+    setQuery((query) => ({ ...query, search }));
+  };
+
   // ============ Context Value ============
-  const contextValue = { products, loading, search, setSearch };
+  const contextValue = {
+    products,
+    loading,
+    search,
+    setSearch,
+    categoryHandler,
+    searchHandler,
+    displayed,
+  };
 
   // ============ Rendering ============
   return (

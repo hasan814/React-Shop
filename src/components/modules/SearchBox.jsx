@@ -4,10 +4,7 @@ import { ImSearch } from "react-icons/im";
 
 const SearchBox = () => {
   // =============== Context =============
-  const { search, setSearch } = useContext(ShopContext);
-
-  // =============== Search Function =============
-  const searchHandler = () => {};
+  const { search, setSearch, searchHandler } = useContext(ShopContext);
 
   // =============== Rendering =============
   return (
