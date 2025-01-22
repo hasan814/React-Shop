@@ -11,27 +11,21 @@ export const reducer = (state, action) => {
   switch (action.type) {
     case "ADD_ITEM": {
       if (!state.selectedItems.find((item) => item.id === action.payload.id)) {
-        const updatedItems = [
-          ...state.selectedItems,
-          { ...action.payload, quantity: 1 },
-        ];
-        return {
-          ...state,
-          selectedItems: updatedItems,
-          ...sumProducts(updatedItems),
-          checkout: false,
-        };
+        state.selectedItems.push({ ...action.payload, quantity: 1 });
       }
-      return state;
+      return {
+        ...state,
+        ...sumProducts(state.selectedItems),
+        checkout: false,
+      };
     }
-
     case "REMOVE_ITEM": {
       const newSelectedItems = state.selectedItems.filter(
         (item) => item.id !== action.payload.id
       );
       return {
         ...state,
-        selectedItems: newSelectedItems,
+        selectedItems: [...newSelectedItems],
         ...sumProducts(newSelectedItems),
       };
     }
@@ -39,48 +33,25 @@ export const reducer = (state, action) => {
       const increaseIndex = state.selectedItems.findIndex(
         (item) => item.id === action.payload.id
       );
-      if (increaseIndex >= 0) {
-        const updatedItems = state.selectedItems.map((item, idx) =>
-          idx === increaseIndex
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
-        return {
-          ...state,
-          selectedItems: updatedItems,
-          ...sumProducts(updatedItems),
-        };
-      }
-      return state;
+      state.selectedItems[increaseIndex].quantity++;
+      return { ...state, ...sumProducts(state.selectedItems) };
     }
-
     case "DECREASE": {
       const decreaseIndex = state.selectedItems.findIndex(
         (item) => item.id === action.payload.id
       );
-      if (decreaseIndex >= 0) {
-        const updatedItems = state.selectedItems.map((item, idx) =>
-          idx === decreaseIndex
-            ? { ...item, quantity: item.quantity - 1 }
-            : item
-        );
-        return {
-          ...state,
-          selectedItems: updatedItems,
-          ...sumProducts(updatedItems),
-        };
-      }
-      return state;
+      state.selectedItems[decreaseIndex].quantity--;
+      return { ...state, ...sumProducts(state.selectedItems) };
     }
-    case "CHECKOUT":
+    case "CHECKOUT": {
       return {
         selectedItems: [],
         itemsCounter: 0,
         checkout: false,
         total: 0,
       };
-
+    }
     default:
-      return state;
+      throw new Error("Invalid Action");
   }
 };
