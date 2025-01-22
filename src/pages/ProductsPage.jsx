@@ -15,8 +15,8 @@ const ProductsPage = () => {
   return (
     <>
       <SearchBox />
-      <div className="flex justify-between">
-        <div className="w-[100%] flex flex-wrap justify-between">
+      <div className="flex">
+        <div className="flex flex-wrap">
           {displayed.map((product) => (
             <Card {...product} key={product.id} />
           ))}

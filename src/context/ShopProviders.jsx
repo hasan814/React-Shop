@@ -13,13 +13,15 @@ const ShopProviders = ({ children }) => {
   const { products, loading } = useFetchProducts();
 
   // ============ Query Effect ============
-  const { displayed, search, setSearch, updateCategory, updateSearch } =
+  const { displayed, query, search, setSearch, updateCategory, updateSearch } =
     useQueryEffect(products, searchParams, setSearchParams);
+
   // ============ Context Value ============
   const contextValue = {
-    products,
-    loading,
+    query,
     search,
+    loading,
+    products,
     setSearch,
     categoryHandler: (event) => {
       const category = event.target.innerText.toLowerCase();

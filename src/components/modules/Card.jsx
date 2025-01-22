@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 
 const Card = ({ id, title, image, price }) => {
   return (
-    <div className="w-72 m-3 p-5 flex flex-col items-start bg-white border-2 border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200">
+    <div className="w-72 mt-3 p-5 flex flex-col items-start bg-white border-2 border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200">
       <img
         src={image}
         alt={title}
