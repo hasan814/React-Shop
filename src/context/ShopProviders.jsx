@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { CreateQueryObject } from "../utils/CreateNewQuery";
 import { CategoryProducts } from "../utils/CategoryProducts";
 import { useSearchParams } from "react-router-dom";
+import { getInitialQuery } from "../utils/GetInitialQuery";
 import { searchProducts } from "../utils/SearchProducts";
 import { ShopContext } from "./ShopContext";
 
@@ -40,11 +41,13 @@ const ShopProviders = ({ children }) => {
   // ============== Display Effect ============
   useEffect(() => {
     setDisplayed(products);
+    setQuery(getInitialQuery(searchParams));
   }, [products]);
 
   // ============== Query Effect ============
   useEffect(() => {
     setSearchParams(query);
+    setSearch(query.search || "");
     let finalProducts = searchProducts(products, query.search);
     finalProducts = CategoryProducts(finalProducts, query.category);
     setDisplayed(finalProducts);
