@@ -1,6 +1,6 @@
-import { useFetchProducts } from "../components/modules/UseFetchProducts";
+import { useFetchProducts } from "../../components/modules/UseFetchProducts";
 import { useSearchParams } from "react-router-dom";
-import { useQueryEffect } from "../components/modules/UseQueryEffect";
+import { useQueryEffect } from "../../components/modules/UseQueryEffect";
 import { ShopContext } from "./ShopContext";
 
 import PropTypes from "prop-types";

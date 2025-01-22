@@ -1,4 +1,4 @@
-import { ShopContext } from "../../context/ShopContext";
+import { ShopContext } from "../../context/ShopContext/ShopContext";
 import { categories } from "../../utils/CategoriesLinks";
 import { useContext } from "react";
 import { FaListUl } from "react-icons/fa";

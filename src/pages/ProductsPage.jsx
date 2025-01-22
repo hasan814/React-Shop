@@ -1,4 +1,4 @@
-import { ShopContext } from "../context/ShopContext";
+import { ShopContext } from "../context/ShopContext/ShopContext";
 import { useContext } from "react";
 
 import SearchBox from "../components/modules/SearchBox";
