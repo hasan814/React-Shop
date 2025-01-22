@@ -10,7 +10,9 @@ const CartProvider = ({ children }) => {
 
   // ============ Rendering ============
   return (
-    <CartContext.Provider value={{ state }}>{children}</CartContext.Provider>
+    <CartContext.Provider value={{ state, dispatch }}>
+      {children}
+    </CartContext.Provider>
   );
 };
 

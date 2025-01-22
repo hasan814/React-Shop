@@ -1,10 +1,25 @@
 import { TbListDetails, TbShoppingBagCheck } from "react-icons/tb";
 import { shortenText } from "../../utils/shortenText";
+import { CartContext } from "../../context/CartContext/CartContext";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 
 import PropTypes from "prop-types";
 
-const Card = ({ id, title, image, price }) => {
+const Card = ({ data }) => {
+  // ============= Destructures =============
+  const { id, title, image, price } = data;
+
+  // ============= Cart Context =============
+  const { state, dispatch } = useContext(CartContext);
+  console.log(state);
+
+  // ============= Handle Function =============
+  const clickHandler = () => {
+    dispatch({ type: "ADD_ITEM", payload: data });
+  };
+
+  // ============= Rendering =============
   return (
     <div className="w-72 mt-3 p-5 flex flex-col items-start bg-white border-2 border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200">
       <img
@@ -23,7 +38,10 @@ const Card = ({ id, title, image, price }) => {
         >
           <TbListDetails className="mr-2" size={20} />
         </Link>
-        <button className="text-white bg-green-500 rounded-lg p-1 hover:text-green-600 hover:bg-transparent flex items-center justify-center transition duration-200">
+        <button
+          onClick={clickHandler}
+          className="text-white bg-green-500 rounded-lg p-1 hover:text-green-600 hover:bg-transparent flex items-center justify-center transition duration-200"
+        >
           <TbShoppingBagCheck className="" size={20} />
         </button>
       </div>
@@ -32,10 +50,12 @@ const Card = ({ id, title, image, price }) => {
 };
 
 Card.propTypes = {
-  id: PropTypes.number.isRequired,
-  image: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  title: PropTypes.string.isRequired,
+  data: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    image: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default Card;
