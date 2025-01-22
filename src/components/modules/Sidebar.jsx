@@ -1,10 +1,20 @@
 import { ShopContext } from "../../context/ShopContext";
 import { useContext } from "react";
 import { FaListUl } from "react-icons/fa";
+import { v4 } from "uuid";
 
 const Sidebar = () => {
   // ============== Context =============
   const { query, categoryHandler } = useContext(ShopContext);
+
+  // ============== Categories ============
+  const categories = [
+    "All",
+    "Electronics",
+    "Jewelery",
+    "Men's Clothing",
+    "Women's Clothing",
+  ];
 
   // ============== Rendering ============
   return (
@@ -15,21 +25,18 @@ const Sidebar = () => {
       </div>
       <hr />
       <ul onClick={categoryHandler} className="space-y-2">
-        <li className="text-sm p-2 cursor-pointer hover:text-blue-600 hover:bg-blue-100 rounded-md">
-          All
-        </li>
-        <li className="text-sm p-2 cursor-pointer hover:text-blue-600 hover:bg-blue-100 rounded-md">
-          Electronics
-        </li>
-        <li className="text-sm p-2 cursor-pointer hover:text-blue-600 hover:bg-blue-100 rounded-md">
-          Jewelery
-        </li>
-        <li className="text-sm text-nowrap p-2 cursor-pointer hover:text-blue-600 hover:bg-blue-100 rounded-md">
-          Men&apos;s clothing
-        </li>
-        <li className="text-sm text-nowrap p-2 cursor-pointer hover:text-blue-600 hover:bg-blue-100 rounded-md">
-          Women&apos;s Clothing
-        </li>
+        {categories.map((category) => (
+          <li
+            key={v4()}
+            className={`text-sm p-2 text-nowrap cursor-pointer rounded-md ${
+              query.category === category.toLowerCase()
+                ? "text-white bg-blue-500"
+                : "hover:text-blue-600 hover:bg-blue-100"
+            }`}
+          >
+            {category}
+          </li>
+        ))}
       </ul>
     </div>
   );
