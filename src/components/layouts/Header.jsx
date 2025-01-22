@@ -1,6 +1,6 @@
+import { CartContext } from "../../context/CartContext/CartContext";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { CartContext } from "../../context/CartContext/CartContext";
 
 const Header = () => {
   // ============ Context ============
