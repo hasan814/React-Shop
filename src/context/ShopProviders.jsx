@@ -1,4 +1,8 @@
 import { useEffect, useState } from "react";
+import { CreateQueryObject } from "../utils/CreateNewQuery";
+import { CategoryProducts } from "../utils/CategoryProducts";
+import { useSearchParams } from "react-router-dom";
+import { searchProducts } from "../utils/SearchProducts";
 import { ShopContext } from "./ShopContext";
 
 import PropTypes from "prop-types";
@@ -12,6 +16,9 @@ const ShopProviders = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [query, setQuery] = useState({});
+
+  // ============ Params ============
+  const [searchParams, setSearchParams] = useSearchParams();
 
   // ============ Fetch Effect ============
   useEffect(() => {
@@ -37,20 +44,23 @@ const ShopProviders = ({ children }) => {
 
   // ============== Query Effect ============
   useEffect(() => {
-    console.log(query);
-  }, [query]);
+    setSearchParams(query);
+    let finalProducts = searchProducts(products, query.search);
+    finalProducts = CategoryProducts(finalProducts, query.category);
+    setDisplayed(finalProducts);
+  }, [query, products, setSearchParams]);
 
   // ============== Hanadler ============
   const categoryHandler = (event) => {
     const { tagName } = event.target;
     const category = event.target.innerText.toLowerCase();
     if (tagName !== "LI") return;
-    setQuery((query) => ({ ...query, category }));
+    setQuery((query) => CreateQueryObject(query, { category }));
   };
 
   // =============== Search Function =============
   const searchHandler = () => {
-    setQuery((query) => ({ ...query, search }));
+    setQuery((query) => CreateQueryObject(query, { search }));
   };
 
   // ============ Context Value ============
