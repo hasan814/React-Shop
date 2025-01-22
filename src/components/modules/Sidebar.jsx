@@ -1,4 +1,5 @@
 import { ShopContext } from "../../context/ShopContext";
+import { categories } from "../../utils/CategoriesLinks";
 import { useContext } from "react";
 import { FaListUl } from "react-icons/fa";
 import { v4 } from "uuid";
@@ -6,15 +7,6 @@ import { v4 } from "uuid";
 const Sidebar = () => {
   // ============== Context =============
   const { query, categoryHandler } = useContext(ShopContext);
-
-  // ============== Categories ============
-  const categories = [
-    "All",
-    "Electronics",
-    "Jewelery",
-    "Men's Clothing",
-    "Women's Clothing",
-  ];
 
   // ============== Rendering ============
   return (
