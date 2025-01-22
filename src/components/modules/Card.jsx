@@ -14,7 +14,6 @@ const Card = ({ data }) => {
 
   // ============= Cart Context =============
   const { state, dispatch } = useContext(CartContext);
-  console.log(state);
 
   // ============= Handle Function =============
   const clickHandler = (type) => {

@@ -1,6 +1,13 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { CartContext } from "../../context/CartContext/CartContext";
 
 const Header = () => {
+  // ============ Context ============
+  const { state } = useContext(CartContext);
+  console.log(state.itemsCounter);
+
+  // ============ Rendering ============
   return (
     <header className="bg-blue-500 text-white shadow-md rounded-bl-lg rounded-br-lg">
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
@@ -24,12 +31,17 @@ const Header = () => {
                 Home
               </Link>
             </li>
-            <li>
+            <li className="relative">
               <Link
                 to="/checkout"
-                className="hover:text-gray-200 transition duration-200"
+                className="hover:text-gray-200 transition duration-200 flex items-center"
               >
                 Checkout
+                {!!state.itemsCounter && (
+                  <span className="absolute -top-2 -right-4 bg-red-500 text-white text-xs font-bold rounded-full px-2 py-1">
+                    {state.itemsCounter}
+                  </span>
+                )}
               </Link>
             </li>
           </ul>
