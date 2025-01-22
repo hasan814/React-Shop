@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 const Header = () => {
   // ============ Context ============
   const { state } = useContext(CartContext);
-  console.log(state.itemsCounter);
 
   // ============ Rendering ============
   return (
